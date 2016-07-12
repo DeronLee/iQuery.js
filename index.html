@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>iQuery.js by TechQuery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">iQuery.js</h1>
+      <h2 class="project-tagline">A jQuery compatible API based on built-in ECMA / W3C polyfill</h2>
+      <a href="https://github.com/TechQuery/iQuery.js" class="btn">View on GitHub</a>
+      <a href="https://github.com/TechQuery/iQuery.js/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/TechQuery/iQuery.js/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="iquery" class="anchor" href="#iquery" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>iQuery</h1>
+
+<h2>
+<a id="概述" class="anchor" href="#%E6%A6%82%E8%BF%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【概述】</h2>
+
+<p><a href="http://tech_query.oschina.io/iquery"><strong>iQuery</strong></a> 是一个 <strong>普适</strong>而 <strong>轻巧</strong>的 <strong>DOM/JavaScript 开发库</strong> —— <strong>支持 IE 8+ 的 jQuery/W3C 兼容 API</strong>，包含 最常用的 jQuery 静态/实例 属性、方法，适合替代逻辑简单的网页中体积很大的 jQuery，或作为 <strong>Web 前端开发基础库</strong> 嵌入各种 独立发布（不能有外部依赖、自闭合、有兼容性要求）的 JavaScript 库。</p>
+
+<p>若 Zepto 相当于 jQuery v2.x 的精简版，那 iQuery 就相当于 <strong>jQuery v1.x 的精简版</strong>；而且 iQuery 在与 Zepto 接近的 <strong>Minimized 体积</strong>中提供了 IE 8/9 的兼容、 <strong>更贴近官方的 jQuery 对象实现</strong> 以及 <strong>更多的实用扩展</strong>（1300+ 行，超三分之一的体量，详见下文）。</p>
+
+<p>在 API 形态上尽力兼容 jQuery 的同时，iQuery 在内部实现上采取 <strong>“面向未来，向前兼容”的 Polyfill 策略</strong> —— 核心逻辑（3000+ 行）尽力基于 <strong>W3C、ECMA 最新标准中的优秀 API</strong>，老旧浏览器兼容代码（部分基于 jQuery API，500+ 行）尽力包装成与新 API 相同的形式（原型拓展），并独立为外部模块。这样做不但能复用 jQuery API 来高效实现，还方便开发人员自行裁剪。</p>
+
+<p>【注】对 IE 的兼容仅限其“标准模式”，而非“兼容性视图”。</p>
+
+<h2>
+<a id="入门" class="anchor" href="#%E5%85%A5%E9%97%A8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【入门】</h2>
+
+<ol>
+<li>基础知识 ——《<a href="http://www.jquery123.com/api/">jQuery API 文档</a>》</li>
+<li>嵌入使用 —— 典型应用实例项目：文件级 <strong>前端脚本加载器</strong> <a href="http://git.oschina.net/Tech_Query/EasyImport.js">EasyImport.js</a>
+</li>
+<li>独立使用 ——（HTML 源码基本结构示例如下）</li>
+</ol>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DocType HTML&gt;
+&lt;<span class="pl-ent">html</span>&gt;&lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">http-equiv</span>=<span class="pl-s"><span class="pl-pds">"</span>X-UA-Compatible<span class="pl-pds">"</span></span> <span class="pl-e">content</span>=<span class="pl-s"><span class="pl-pds">"</span>IE=Edge, Chrome=1<span class="pl-pds">"</span></span> /&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>path/to/iQuery.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+&lt;/<span class="pl-ent">head</span>&gt;&lt;<span class="pl-ent">body</span>&gt;
+    ...
+&lt;/<span class="pl-ent">body</span>&gt;&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h3>
+<a id="成功驱动的项目" class="anchor" href="#%E6%88%90%E5%8A%9F%E9%A9%B1%E5%8A%A8%E7%9A%84%E9%A1%B9%E7%9B%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【成功驱动的项目】</h3>
+
+<ol>
+<li>EasyImport.js</li>
+<li>某公司 JS-SDK</li>
+<li><a href="http://git.oschina.net/Tech_Query/EasyWebUI/">EasyWebUI</a></li>
+<li><a href="http://git.oschina.net/Tech_Query/EasyWebApp/">EasyWebApp</a></li>
+<li><a href="https://larsjung.de/jquery-qrcode/">jQuery-QRcode</a></li>
+<li><a href="http://git.oschina.net/Tech_Query/EasyWiki/">EasyWiki</a></li>
+<li>某公司 开放平台、业务后台</li>
+<li>某公司 微信轻应用</li>
+<li>某公司 WiFi 认证微官网</li>
+</ol>
+
+<h2>
+<a id="对-jquery最新版的增强" class="anchor" href="#%E5%AF%B9-jquery%E6%9C%80%E6%96%B0%E7%89%88%E7%9A%84%E5%A2%9E%E5%BC%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【对 jQuery（最新版）的增强】</h2>
+
+<p>以下扩展已收录在本项目的 <a href="/master/jQuery+.js"><strong>jQuery+.js</strong></a> 中，方便配合其它 jQuery API 实现 ——</p>
+
+<ul>
+<li>内置一个改进且向下兼容的 <strong>$.browser 对象</strong>，能通过 <strong>直接比较版本号</strong>来区分浏览器</li>
+<li>新增 <strong>计时相关方法（秒基准）</strong>—— <code>$.every()</code>、<code>$.wait()</code>、<code>$.start()</code>、<code>$.end()</code>
+</li>
+<li>新增 <strong>唯一串号生成器</strong> —— <code>$.uuid()</code>
+</li>
+<li>新增 <strong>类数组对象</strong>判断方法 —— <code>$.likeArray()</code>
+</li>
+<li>
+<code>$.unique()</code> 方法不局限于 DOM 元素数组</li>
+<li>新增 <strong>对象值相等</strong>判断方法 —— <code>$.isEqual()</code>
+</li>
+<li>新增 <strong>集合对象</strong>（可用于 in 操作符）生成方法 —— <code>$.makeSet()</code>
+</li>
+<li>新增 <strong>对象链回溯</strong>方法 —— <code>$.trace()</code>
+</li>
+<li>新增 <strong>数组/对象交集方法</strong> —— <code>$.intersect()</code>
+</li>
+<li>新增 <strong>纯数据类型</strong>判断方法 —— <code>$.isData()</code>
+</li>
+<li>新增 <strong>对象构造函数名</strong>获取方法 —— <code>$.Type()</code>
+</li>
+<li>新增 <strong>字符串部分分割</strong>方法 —— <code>$.split()</code>（借鉴 PHP）</li>
+<li>新增 <strong>字符串字节长度</strong>方法 —— <code>$.byteLength()</code>
+</li>
+<li>新增 <strong>URL 参数对象化</strong>方法（$.param() 的逆方法）—— <code>$.paramJSON()</code>，其返回值自带的 .toString() 有 <strong>JSON 格式化（美化）输出</strong>能力</li>
+<li>新增 <strong>URL 参数签名</strong>方法 —— <code>$.paramSign()</code>
+</li>
+<li>新增 <strong>多条件观察者</strong>基础对象 —— <code>$.Observer()</code>
+</li>
+<li>更智能的 <code>$.get()</code>、<code>$.post()</code>：支持 form 元素、FormData 对象的请求数据形式，整合 XHR、XDR、JSONP、iframe <strong>自适应 跨域请求</strong>， <strong>自动转换响应内容</strong>为 JSON 或 XML 对象实例</li>
+<li>新增 <code>$.delete()</code>、<code>$.put()</code>，方便实现基于 <strong>RESTful API</strong> 的单页应用</li>
+<li>新增 <strong>URL 信息提取</strong>方法 —— <code>$.fileName()</code>、<code>$.filePath()</code>、<code>$.urlDomain()</code>
+</li>
+<li>封装了 <strong>表单元素无刷新提交</strong>，并可直接绑定响应回调 —— <code>$.fn.ajaxSubmit()</code>（基于前述的几个 <strong>AJAX 增强方法</strong> 构建）</li>
+<li>新增 <strong>选择符合法性判断</strong>方法 —— <code>$.isSelector()</code>
+</li>
+<li>更多 jQuery <strong>伪类选择符</strong>：
+
+<ul>
+<li>
+<strong>:image</strong> 还支持 <code>img, link[type="image/x-icon"], svg, canvas</code>
+</li>
+<li>
+<strong>:button</strong> 还支持 <code>input[type="submit"], input[type="reset"], input[type="image"]</code>
+</li>
+<li>新增 <strong>:data 伪类</strong> 来筛选有 data-* 属性的元素</li>
+<li>新增 <strong>:list 伪类</strong>，等价于 <code>ul, ol, dl</code>
+</li>
+</ul>
+</li>
+<li>新增 <strong>子元素插入</strong>方法 —— <code>$.fn.insertTo()</code>
+</li>
+<li>新增 <strong>祖先元素交集</strong>方法 —— <code>$.fn.sameParents()</code>
+</li>
+<li>新增 <strong>有滚动条的祖先元素</strong>方法 —— <code>$.fn.scrollParents()</code>
+</li>
+<li>新增 <strong>元素可视口检测</strong>方法 —— <code>$.fn.inViewport()</code>
+</li>
+<li>新增 <strong>元素平滑滚动</strong>方法 —— <code>$.fn.scrollTo()</code>
+</li>
+<li>所有类型的 <strong>DOM 信息读写器</strong>（<code>.attr()</code>、<code>.prop()</code>、<code>.css()</code>、<code>.data()</code>）均支持“不传键名时返回 <strong>信息全集</strong>”特性</li>
+<li>新增 <strong>DOM 数据归并</strong>方法 —— <code>$.fn.reduce()</code>
+</li>
+<li>新增 <strong>DOM 可见内容读写</strong>方法 —— <code>$.fn.value()</code>，智能存取多种类型的值</li>
+<li>.css() 取值时，会把 纯数字值、像素值 直接返回为 Number 类型</li>
+<li>.css() 赋值一律默认 important 优先级，确保赋值的有效性</li>
+<li>
+<code>$.fn.show()</code> 兼容 <strong>元素非固有 display 属性值</strong>，避免破坏 复杂布局</li>
+<li>新增 <strong>DOM 元素 z-index 集成</strong>方法 —— <code>$.fn.zIndex()</code>，集 <strong>取实际值、赋值、同辈置顶/沉底</strong> 功能于一身</li>
+<li>新增 <strong>CSS 规则全局设置</strong>方法 —— <code>$.cssRule()</code>
+</li>
+<li>新增 <strong>DOM 元素 CSS 规则读写</strong>方法 —— <code>$.fn.cssRule()</code>
+</li>
+<li>新增 <strong>DOM 选中内容读写</strong>方法 —— <code>$.fn.selection()</code>
+</li>
+<li>
+<code>$.fn.focus()</code> 会让所有可见元素获得焦点</li>
+<li>统一 <strong>mousewheel 事件</strong>，并新增其快捷方法</li>
+<li>封装了 <strong>触屏单指手势事件</strong>（tap、press、swipe），并为桌面端、移动端提供一致的操作体验</li>
+<li>新增 <strong>跨页面消息事件</strong>方法 —— <code>$.fn.onReply()</code>（基于 <code>window.postMessage()</code>）</li>
+</ul>
+
+<h2>
+<a id="未实现的-jquery最新版特性" class="anchor" href="#%E6%9C%AA%E5%AE%9E%E7%8E%B0%E7%9A%84-jquery%E6%9C%80%E6%96%B0%E7%89%88%E7%89%B9%E6%80%A7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【未实现的 jQuery（最新版）特性】</h2>
+
+<ul>
+<li>没有 $.noConflict()，但不会强占 jQuery 变量</li>
+<li>不支持 浏览器 <strong>内置类型</strong>（构造函数）相应的 $.isXXX() 系列方法</li>
+<li>不支持 <strong>浏览器特性检测</strong>
+</li>
+<li>暂不支持 $.ajax() 及其多数自定义选项</li>
+<li>不支持 $.Deferred()（正在尝试引入 ECMAScript 6 支持的 <strong>Promise/A+ 规范</strong>）</li>
+<li>
+<strong>jQuery 扩展伪类选择符</strong>：只支持 常用且“难以用 <strong>CSS 标准选择符</strong> 或 jQuery API 实现其功能”的</li>
+<li>不支持 <strong>XPath 选择器</strong>、操作 <strong>XML 文档</strong>
+</li>
+<li>构造 DOM 元素时的第二参数中不能调用与键名同名的实例方法，仅能设置 DOM 属性</li>
+<li>不支持一些不常用的 <strong>jQuery 静态/实例方法</strong>
+</li>
+<li>暂不支持 <strong>动画队列</strong>
+</li>
+</ul>
+
+<h2>
+<a id="javascriptdombom-原生-api-扩展" class="anchor" href="#javascriptdombom-%E5%8E%9F%E7%94%9F-api-%E6%89%A9%E5%B1%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【JavaScript、DOM、BOM 原生 API 扩展】</h2>
+
+<ul>
+<li>自带 支持“非空白符”的 <code>String.prototype.trim()</code>（借鉴 PHP）</li>
+<li>新增 <code>String.prototype.repeat</code> 标准草案方法</li>
+<li>新增 String <strong>toCamelCase</strong>（驼峰命名法）、 <strong>toHyphenCase</strong>（连字符命名法） <strong>书写格式转换</strong>方法</li>
+<li>自带 <code>Array.prototype.indexOf()</code> 标准方法</li>
+<li>自带 <code>Array.prototype.reduce()</code> 标准方法</li>
+<li>自带 <code>Function.prototype.name</code> 属性补丁</li>
+<li>自带 <code>Object.getOwnPropertyNames()</code> 标准方法</li>
+<li>自带 <code>Date.now()</code> 标准方法</li>
+<li>新增 JSON <strong>format 格式化显示</strong>方法、 <strong>parseAll 深度解析</strong>方法（$.parseJSON() 被其增强）</li>
+<li>重写 <code>Error.prototype.valueOf()</code>，使 IE 10- 返回可查询的错误码（附带 官方文档 URL）</li>
+<li>新增 <strong>DOMHttpRequest 对象</strong>，封装了 <strong>JSONP Get</strong>、 <strong>iframe Post</strong>
+</li>
+<li>自带 <code>HTMLDocument.prototype.currentScript</code> 属性</li>
+<li>自带 <code>Element.prototype.textContent</code> 属性</li>
+<li>自带 <code>Element.prototype.innerHTML</code> 的 IE 8 补丁</li>
+<li>自带 <strong>HTMLCollection 对象</strong>，修复 IE 10- <code>Element.prototype.children</code> 属性在其元素有 name 属性时的“数字键值缺失”Bug</li>
+<li>自带 Element 对象的 <code>firstElementChild</code>、<code>lastElementChild</code>、<code>previousElementSibling</code>、<code>nextElementSibling</code> 属性</li>
+<li>自带 <code>Element.prototype.matches</code> 标准草案方法</li>
+<li>自带 <strong>DOMTokenList 对象</strong>，为 IE 10- 提供 <strong>classList</strong> 支持</li>
+<li>自带 <strong>DOMStringMap 对象</strong>，为 IE 11- 提供 <strong>dataset</strong> 支持</li>
+<li>修正 IE 8 DOM Attribute 系列方法对 JavaScript 关键字的特殊处理</li>
+<li>自带 <strong>CSSStyleDeclaration 对象</strong>，为 IE 8 提供 <strong>getComputedStyle</strong> 支持，并封装了 M$ DirectX 滤镜属性转换</li>
+<li>自带 Google Chrome <strong>元素 CSS 规则对象 获取</strong>方法 <code>Window.getMatchedCSSRules()</code>
+</li>
+<li>自带 <strong>HTML 5 Form API</strong>，为 IE 10-、iOS WebKit 提供兼容支持</li>
+<li>自带 <strong>FormData 构造函数</strong>，为 IE 10- 提供 表单数据封装</li>
+<li>自带 DOMParser 对象，为 IE 8 提供 <strong>XML 文档解析</strong>支持</li>
+</ul>
+
+<h2>
+<a id="iquery-插件库" class="anchor" href="#iquery-%E6%8F%92%E4%BB%B6%E5%BA%93" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【iQuery+ 插件库】</h2>
+
+<ul>
+<li>通用 <strong>CommonView 对象</strong>生成方法 —— <code>$.CommonView()</code>
+</li>
+<li>通用 <strong>ListView 对象</strong>生成方法 —— <code>$.ListView()</code>
+</li>
+<li>通用 <strong>TreeView 对象</strong>生成方法 —— <code>$.TreeView()</code>
+</li>
+<li>
+<strong>HTML 5  History API  Polyfill</strong> —— 为 IE 10- 提供兼容支持（需 服务器端响应 <code>./blank.html</code> 或 404 页面）</li>
+<li>Base64 文本转 <strong>二进制对象</strong>方法 —— <code>$.toBlob()</code>
+</li>
+<li>基于 <strong>现代浏览器 Crypto API</strong> 的哈希方法 —— <code>$.dataHash()</code>
+</li>
+</ul>
+
+<h2>
+<a id="参与开发" class="anchor" href="#%E5%8F%82%E4%B8%8E%E5%BC%80%E5%8F%91" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【参与开发】</h2>
+
+<h3>
+<a id="〇环境搭建" class="anchor" href="#%E3%80%87%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>（〇）环境搭建</h3>
+
+<ol>
+<li>安装 <strong>Git</strong>（比 SVN 更适合 <strong>开源团队</strong>）</li>
+<li>安装 <strong>Node.JS</strong> 最新 LTS 版</li>
+</ol>
+
+<h3>
+<a id="一从源码构建" class="anchor" href="#%E4%B8%80%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>（一）从源码构建</h3>
+
+<p>UNIX-Shell、Windows-CMD 通用脚本 ——</p>
+
+<div class="highlight highlight-source-shell"><pre>npm install -g requirejs
+npm install -g uglify-js
+
+mkdir ./iQuery
+git clone https://git.oschina.net/Tech_Query/iQuery.git ./iQuery
+
+node r.js -o build/source.js
+uglifyjs iQuery.js -c -m -o iQuery.min.js --source-map=iQuery.min.map</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/TechQuery/iQuery.js">iQuery.js</a> is maintained by <a href="https://github.com/TechQuery">TechQuery</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
