@@ -22,9 +22,6 @@
       <h1>
 <a id="iquery" class="anchor" href="#iquery" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>iQuery</h1>
 
-<h2>
-<a id="概述" class="anchor" href="#%E6%A6%82%E8%BF%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【概述】</h2>
-
 <p><a href="http://tech_query.oschina.io/iquery"><strong>iQuery</strong></a> 是一个 <strong>普适</strong>而 <strong>轻巧</strong>的 <strong>DOM/JavaScript 开发库</strong> —— <strong>支持 IE 8+ 的 jQuery/W3C 兼容 API</strong>，包含 最常用的 jQuery 静态/实例 属性、方法，适合替代逻辑简单的网页中体积很大的 jQuery，或作为 <strong>Web 前端开发基础库</strong> 嵌入各种 独立发布（不能有外部依赖、自闭合、有兼容性要求）的 JavaScript 库。</p>
 
 <p>若 Zepto 相当于 jQuery v2.x 的精简版，那 iQuery 就相当于 <strong>jQuery v1.x 的精简版</strong>；而且 iQuery 在与 Zepto 接近的 <strong>Minimized 体积</strong>中提供了 IE 8/9 的兼容、 <strong>更贴近官方的 jQuery 对象实现</strong> 以及 <strong>更多的实用扩展</strong>（1300+ 行，超三分之一的体量，详见下文）。</p>
@@ -52,7 +49,7 @@
 &lt;/<span class="pl-ent">body</span>&gt;&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
 <h3>
-<a id="成功驱动的项目" class="anchor" href="#%E6%88%90%E5%8A%9F%E9%A9%B1%E5%8A%A8%E7%9A%84%E9%A1%B9%E7%9B%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【成功驱动的项目】</h3>
+<a id="成功驱动的项目" class="anchor" href="#%E6%88%90%E5%8A%9F%E9%A9%B1%E5%8A%A8%E7%9A%84%E9%A1%B9%E7%9B%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>成功驱动的项目</h3>
 
 <ol>
 <li>EasyImport.js</li>
@@ -67,7 +64,10 @@
 </ol>
 
 <h2>
-<a id="对-jquery最新版的增强" class="anchor" href="#%E5%AF%B9-jquery%E6%9C%80%E6%96%B0%E7%89%88%E7%9A%84%E5%A2%9E%E5%BC%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【对 jQuery（最新版）的增强】</h2>
+<a id="api-总览" class="anchor" href="#api-%E6%80%BB%E8%A7%88" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【API 总览】</h2>
+
+<h3>
+<a id="对-jquery最新版的增强" class="anchor" href="#%E5%AF%B9-jquery%E6%9C%80%E6%96%B0%E7%89%88%E7%9A%84%E5%A2%9E%E5%BC%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>对 jQuery（最新版）的增强</h3>
 
 <p>以下扩展已收录在本项目的 <a href="/master/jQuery+.js"><strong>jQuery+.js</strong></a> 中，方便配合其它 jQuery API 实现 ——</p>
 
@@ -101,7 +101,7 @@
 </li>
 <li>新增 <strong>多条件观察者</strong>基础对象 —— <code>$.Observer()</code>
 </li>
-<li>更智能的 <code>$.get()</code>、<code>$.post()</code>：支持 form 元素、FormData 对象的请求数据形式，整合 XHR、XDR、JSONP、iframe <strong>自适应 跨域请求</strong>， <strong>自动转换响应内容</strong>为 JSON 或 XML 对象实例</li>
+<li>更智能的 <code>$.get()</code>、<code>$.post()</code>：支持 form 元素、FormData 对象的请求数据形式，整合 XHR、XDR、JSONP、iframe <strong>自适应 跨域请求</strong>， <strong>自动转换响应内容</strong>为 HTML、XML 或 JSON 对象实例</li>
 <li>新增 <code>$.delete()</code>、<code>$.put()</code>，方便实现基于 <strong>RESTful API</strong> 的单页应用</li>
 <li>新增 <strong>URL 信息提取</strong>方法 —— <code>$.fileName()</code>、<code>$.filePath()</code>、<code>$.urlDomain()</code>
 </li>
@@ -112,13 +112,15 @@
 
 <ul>
 <li>
-<strong>:image</strong> 还支持 <code>img, link[type="image/x-icon"], svg, canvas</code>
-</li>
+<strong>:image</strong> 还支持 <code>img, link[type="image/x-icon"], svg, canvas</code> 及设置了 <code>background-image</code> 的普通元素</li>
 <li>
 <strong>:button</strong> 还支持 <code>input[type="submit"], input[type="reset"], input[type="image"]</code>
 </li>
-<li>新增 <strong>:data 伪类</strong> 来筛选有 data-* 属性的元素</li>
-<li>新增 <strong>:list 伪类</strong>，等价于 <code>ul, ol, dl</code>
+<li>自带 <strong>:focusable 伪类</strong>（<a href="http://api.jqueryui.com/">jQuery UI</a> 标准）</li>
+<li>自带 <strong>:data() 伪类</strong>（<a href="http://api.jqueryui.com/">jQuery UI</a> 标准）</li>
+<li>新增 <strong>:list 伪类</strong>，等价于 <code>ul, ol, dl, tbody, select, datalist</code>
+</li>
+<li>新增 <strong>:media 伪类</strong>，等价于 <code>iframe, object, embed, audio, video</code> 及尺寸较大的 <code>:image</code>
 </li>
 </ul>
 </li>
@@ -154,29 +156,28 @@
 <li>新增 <strong>跨页面消息事件</strong>方法 —— <code>$.fn.onReply()</code>（基于 <code>window.postMessage()</code>）</li>
 </ul>
 
-<h2>
-<a id="未实现的-jquery最新版特性" class="anchor" href="#%E6%9C%AA%E5%AE%9E%E7%8E%B0%E7%9A%84-jquery%E6%9C%80%E6%96%B0%E7%89%88%E7%89%B9%E6%80%A7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【未实现的 jQuery（最新版）特性】</h2>
+<h3>
+<a id="未实现的-jquery最新版特性" class="anchor" href="#%E6%9C%AA%E5%AE%9E%E7%8E%B0%E7%9A%84-jquery%E6%9C%80%E6%96%B0%E7%89%88%E7%89%B9%E6%80%A7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>未实现的 jQuery（最新版）特性</h3>
 
 <ul>
 <li>没有 $.noConflict()，但不会强占 jQuery 变量</li>
 <li>不支持 浏览器 <strong>内置类型</strong>（构造函数）相应的 $.isXXX() 系列方法</li>
 <li>不支持 <strong>浏览器特性检测</strong>
 </li>
-<li>暂不支持 $.ajax() 及其多数自定义选项</li>
-<li>不支持 $.Deferred()（正在尝试引入 ECMAScript 6 支持的 <strong>Promise/A+ 规范</strong>）</li>
+<li>不支持 $.ajax() 不常用的自定义选项</li>
+<li>不支持 $.Deferred()</li>
 <li>
 <strong>jQuery 扩展伪类选择符</strong>：只支持 常用且“难以用 <strong>CSS 标准选择符</strong> 或 jQuery API 实现其功能”的</li>
 <li>不支持 <strong>XPath 选择器</strong>、操作 <strong>XML 文档</strong>
 </li>
-<li>构造 DOM 元素时的第二参数中不能调用与键名同名的实例方法，仅能设置 DOM 属性</li>
 <li>不支持一些不常用的 <strong>jQuery 静态/实例方法</strong>
 </li>
 <li>暂不支持 <strong>动画队列</strong>
 </li>
 </ul>
 
-<h2>
-<a id="javascriptdombom-原生-api-扩展" class="anchor" href="#javascriptdombom-%E5%8E%9F%E7%94%9F-api-%E6%89%A9%E5%B1%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【JavaScript、DOM、BOM 原生 API 扩展】</h2>
+<h3>
+<a id="ecmaw3c-标准-api-补丁" class="anchor" href="#ecmaw3c-%E6%A0%87%E5%87%86-api-%E8%A1%A5%E4%B8%81" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ECMA、W3C 标准 API 补丁</h3>
 
 <ul>
 <li>自带 支持“非空白符”的 <code>String.prototype.trim()</code>（借鉴 PHP）</li>
@@ -188,6 +189,7 @@
 <li>自带 <code>Object.getOwnPropertyNames()</code> 标准方法</li>
 <li>自带 <code>Date.now()</code> 标准方法</li>
 <li>新增 JSON <strong>format 格式化显示</strong>方法、 <strong>parseAll 深度解析</strong>方法（$.parseJSON() 被其增强）</li>
+<li>自带 <code>Promise()</code> 标准对象构造函数</li>
 <li>重写 <code>Error.prototype.valueOf()</code>，使 IE 10- 返回可查询的错误码（附带 官方文档 URL）</li>
 <li>新增 <strong>DOMHttpRequest 对象</strong>，封装了 <strong>JSONP Get</strong>、 <strong>iframe Post</strong>
 </li>
@@ -199,6 +201,7 @@
 <li>自带 <code>Element.prototype.matches</code> 标准草案方法</li>
 <li>自带 <strong>DOMTokenList 对象</strong>，为 IE 10- 提供 <strong>classList</strong> 支持</li>
 <li>自带 <strong>DOMStringMap 对象</strong>，为 IE 11- 提供 <strong>dataset</strong> 支持</li>
+<li>自带 <code>HTMLSelectElement.prototype.selectedOptions</code> 属性的 IE 补丁</li>
 <li>修正 IE 8 DOM Attribute 系列方法对 JavaScript 关键字的特殊处理</li>
 <li>自带 <strong>CSSStyleDeclaration 对象</strong>，为 IE 8 提供 <strong>getComputedStyle</strong> 支持，并封装了 M$ DirectX 滤镜属性转换</li>
 <li>自带 Google Chrome <strong>元素 CSS 规则对象 获取</strong>方法 <code>Window.getMatchedCSSRules()</code>
@@ -230,7 +233,7 @@
 <a id="参与开发" class="anchor" href="#%E5%8F%82%E4%B8%8E%E5%BC%80%E5%8F%91" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>【参与开发】</h2>
 
 <h3>
-<a id="〇环境搭建" class="anchor" href="#%E3%80%87%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>（〇）环境搭建</h3>
+<a id="环境搭建" class="anchor" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>环境搭建</h3>
 
 <ol>
 <li>安装 <strong>Git</strong>（比 SVN 更适合 <strong>开源团队</strong>）</li>
@@ -238,7 +241,7 @@
 </ol>
 
 <h3>
-<a id="一从源码构建" class="anchor" href="#%E4%B8%80%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>（一）从源码构建</h3>
+<a id="从源码构建" class="anchor" href="#%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>从源码构建</h3>
 
 <p>UNIX-Shell、Windows-CMD 通用脚本 ——</p>
 
